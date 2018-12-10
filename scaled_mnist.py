@@ -136,7 +136,7 @@ test(model, test_scaled_gen, validation_steps, epoch)
 # ---
 # Deformable(trainable) CNN
 
-print('Finetune deformable CNN (ConvOffset2D and BatchNorm)')
+print('Train deformable CNN')
 model = get_deform_cnn(trainable=True)
 model = model.cuda()
 transfer_weights(model_cnn, model)
