@@ -88,8 +88,8 @@ model = get_cnn()
 model = model.cuda()
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 for epoch in range(10):
-    test(model, test_gen, validation_steps, epoch)
-    train(model, train_gen, steps_per_epoch, epoch)
+    test(model, test_scaled_gen, validation_steps, epoch)
+    train(model, train_scaled_gen, steps_per_epoch, epoch)
 
 
 torch.save(model, 'models/cnn.th')
@@ -102,6 +102,7 @@ model_cnn = torch.load('models/cnn.th')
 
 test(model_cnn, test_gen, validation_steps, epoch)
 # 99.27%
+test(model_cnn, test_scaled_gen, validation_steps, epoch)
 test(model_cnn, test_scaled_gen, validation_steps, epoch)
 # 58.83%
 
