@@ -130,3 +130,29 @@ test(model, test_gen, validation_steps, epoch)
 # xx%
 test(model, test_scaled_gen, validation_steps, epoch)
 # xx%
+
+
+# ---
+# Deformable(trainable) CNN
+
+print('Finetune deformable CNN (ConvOffset2D and BatchNorm)')
+model = get_deform_cnn(trainable=True)
+model = model.cuda()
+transfer_weights(model_cnn, model)
+optimizer = optim.Adam(model.parameters(), lr=1e-3)
+for epoch in range(20):
+    test(model, test_scaled_gen, validation_steps, epoch)
+    train(model, train_scaled_gen, steps_per_epoch, epoch)
+
+
+torch.save(model, 'models/deform_cnn_trainable.th')
+# ---
+# Evaluate deformable(trainable) CNN
+
+print('Evaluate deformable CNN')
+model = torch.load('models/deform_cnn_trainable.th')
+
+test(model, test_gen, validation_steps, epoch)
+# xx%
+test(model, test_scaled_gen, validation_steps, epoch)
+# xx%
